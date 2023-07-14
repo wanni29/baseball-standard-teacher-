@@ -25,6 +25,70 @@ player가 driving 이라면 left outer join
 피벗
 ```
 
+## 단계
+-1단계
+```text
+야구장등록, 야구장목록, 팀등록, 팀목록 ,선수등록 ,선수목록 ,퇴출등록 ,퇴출목록
+```
+
+-2단계
+```text
+포지션별목록
+```
+
+-3단계
+```text
+테스트 - 예외처리
+```
+
+-4단계
+```text
+UX 사용자 경험을 좋게 해주기
+```
+
+
+## 시나리오 데이터 쿼리 만들기
+```sql
+-- 야구장등록?name=창원NC파크
+insert into stadium(name, created_at) values('창원NC파크', now());
+
+-- 야구장목록
+select *
+from stadium;
+
+-- 팀등록?stadiumId=4&name=NC
+insert into team(stadium_id, name, created_at) values(4, 'NC', now());
+
+-- 팀목록
+select t.id t_id, s.name s_name, t.name t_name, t.created_at t_created_at
+from team t inner join stadium s on t.stadium_id = s.id;
+
+-- 선수등록?teamId=4&name=심창민&position=투수
+insert into player (team_id, name, position, created_at) 
+values(4, '심창민', '투수', now());
+
+-- 선수목록?teamId=1
+select * from player where team_id=1;
+
+-- 퇴출등록?playerId=8&reason=도박
+insert into out_player(player_id, reason, created_at) 
+values(8, '도박', now());
+update player set team_id = null where id = 8;
+
+-- 퇴출목록
+select 
+p.id p_id, 
+p.name p_name, 
+p.position p_position, 
+op.reason op_reason,
+op.created_at op_created_at
+from player p left outer join out_player op
+on p.id = op.player_id;
+
+-- 포지션별목록
+
+```
+
 
 
 ## 스키마 
