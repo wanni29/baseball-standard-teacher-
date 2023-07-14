@@ -26,6 +26,7 @@ player가 driving 이라면 left outer join
 ```
 
 
+
 ## 스키마 
 ```sql
 create database baseball;
@@ -65,8 +66,16 @@ create table out_player (
 ) DEFAULT CHARACTER SET utf8mb4;
 ```
 
-## 선수 데이터
+## 더미 데이터
 ```sql
+insert into stadium(name, created_at) values('사직야구장', now());
+insert into stadium(name, created_at) values('잠실야구장', now());
+insert into stadium(name, created_at) values('라이온즈파크', now());
+
+insert into team(stadium_id, name, created_at) values(1, '롯데', now());
+insert into team(stadium_id, name, created_at) values(2, '두산', now());
+insert into team(stadium_id, name, created_at) values(3, '삼성', now());
+
 INSERT INTO player (team_id, name, position, created_at) VALUES
 -- 롯데 자이언츠 선수
 (1, '손아섭', '1루수', now()),
